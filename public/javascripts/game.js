@@ -29,13 +29,49 @@ for(i = 0; i < cols; i++) {
 
 let hitCount = 0;
 
+
+var grid = [
+    [1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0]
+]
+
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
 gridContainer.addEventListener("click", fire, false);
  
 function fire(e) {
+    //controli
     if (e.target !== e.currentTarget) {
-        var clickedItem = e.target.id;
-        alert("This div has id: " + clickedItem);
+        var row = e.target.id.substring(2,3);
+        var col = e.target.id.substring(3,4);
+        //alert("row " + row + " col " + col);
+
+        var myElement = document.querySelector("#" + e.target.id)
+        if (grid[row][col] == 0){ 
+            myElement.style.background = 'blue';
+            grid[row][col] = 3;
+        }else if (grid[row][col] == 1){
+            myElement.style.backgroundColor = 'red';
+            grid[row][col] = 2;
+
+            hitCount++;
+            
+            if (hitCount == 20){
+                alert("All enemy ships have been sunk");
+            }
+
+        }else if (grid[row][col] > 1){
+            alert("you already hit this shit")
+        }
     }
+
+
     e.stopPropagation();
 }

@@ -19,7 +19,7 @@ body {
 	position: relative;
 	margin:0 auto 2em auto;
 	width: 500px;
-	height: 500px;
+    height: 500px;    
 }
 
 #Grid div {
