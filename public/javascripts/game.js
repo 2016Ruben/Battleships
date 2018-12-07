@@ -34,36 +34,20 @@ gridContainer.addEventListener("click", fire, false);
  
 function fire(e) {
     if (e.target !== e.currentTarget) {
-        var clickedItem = e.target.id;
-        alert("This div has id: " + clickedItem);
+
+        var row = e.target.id.substring(2,3);
+        var col = e.target.id.substring(3,4);
+
+        alert("This div has col: " + col + "and row: " + row);
+
+        var myElement = document.querySelector("#" + e.target.id);
+        myElement.style.backgroundColor = "#D93600";
+
+        
+
+
+
+
     }
     e.stopPropagation();
 }
-
-
-
-//create the ships
-const battleship2 = {
-    "size" : 2,
-    "name" : "Patrol Boat"
-};
-
-const battleship3 = {
-    "size" : 3,
-    "name" : "Destroyer"
-};
-
-const battleship4 = {
-    "size" : 4,
-    "name" : "Battleship"
-};
-
-const battleship5 = {
-    "size" : 5,
-    "name" : "Carrier"
-};
-
-const battleship6 = {
-    "size" : 6,
-    "name" : "Dikke Unit"
-};
