@@ -39,3 +39,31 @@ function fire(e) {
     }
     e.stopPropagation();
 }
+
+
+
+//create the ships
+const battleship2 = {
+    "size" : 2,
+    "name" : "Patrol Boat"
+};
+
+const battleship3 = {
+    "size" : 3,
+    "name" : "Destroyer"
+};
+
+const battleship4 = {
+    "size" : 4,
+    "name" : "Battleship"
+};
+
+const battleship5 = {
+    "size" : 5,
+    "name" : "Carrier"
+};
+
+const battleship6 = {
+    "size" : 6,
+    "name" : "Dikke Unit"
+};
