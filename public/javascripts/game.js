@@ -27,9 +27,6 @@ for(i = 0; i < cols; i++) {
     }
 }
 
-let hitCount = 0;
-
-
 var grid = [
     [1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1],
@@ -43,6 +40,8 @@ var grid = [
     [0,0,0,0,0,0,0,0,0,0]
 ]
 
+
+let hitCount = 0;
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
 gridContainer.addEventListener("click", fire, false);
  
@@ -51,58 +50,56 @@ function fire(e) {
     if (e.target !== e.currentTarget) {
         var row = e.target.id.substring(2,3);
         var col = e.target.id.substring(3,4);
-        //alert("row " + row + " col " + col);
+        //alert("row: " + row + ", col: " + col);
 
-        var myElement = document.querySelector("#" + e.target.id)
+        //retrieving the id of the clicked div
+        var myElement = document.querySelector("#" + e.target.id)           
         if (grid[row][col] == 0){ 
-            myElement.style.background = 'blue';
+            myElement.style.background = "#5984C5";
             grid[row][col] = 3;
         }else if (grid[row][col] == 1){
-            myElement.style.backgroundColor = 'red';
+            myElement.style.backgroundColor = "#C45858";
             grid[row][col] = 2;
 
             hitCount++;
-            
-            if (hitCount == 20){
-                alert("All enemy ships have been sunk");
-            }
 
+            isWon();
         }else if (grid[row][col] > 1){
             alert("you already hit this shit")
         }
     }
-
-    ship2 = {
-        "size" : 2,
-        "name" : "Partol Boat"
-    }
-
-    ship3 = {
-        "size" : 3,
-        "name" : "Destroyer"
-    }
-
-    ship2 = {
-        "size" : 4,
-        "name" : "Battleship"
-    }
-
-    ship2 = {
-        "size" : 5,
-        "name" : "Carrier"
-    }
-
-    ship2 = {
-        "size" : 6,
-        "name" : "Dikke Unit"
-    }
-
-
     e.stopPropagation();
-    123
-}
 }
 
+function isWon(e) {
+    setTimeout(function() {
+        if (hitCount > 19){
+            alert("All enemy ships have been sunk");
+        }},10)
+}
 
 
-456
+ship2 = {
+    "size" : 2,
+    "name" : "Partol Boat"
+}
+
+ship3 = {
+    "size" : 3,
+    "name" : "Destroyer"
+}
+
+ship4 = {
+    "size" : 4,
+    "name" : "Battleship"
+}
+
+ship5 = {
+    "size" : 5,
+    "name" : "Carrier"
+}
+
+ship6 = {
+    "size" : 6,
+    "name" : "Dikke Unit"
+}
