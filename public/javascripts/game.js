@@ -31,8 +31,8 @@ let hitCount = 0;
 
 
 var grid = [
-    [1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
@@ -47,27 +47,28 @@ var grid = [
 gridContainer.addEventListener("click", fire, false);
  
 function fire(e) {
-    //controli
+    //gets the row and col number
     if (e.target !== e.currentTarget) {
         var row = e.target.id.substring(2,3);
         var col = e.target.id.substring(3,4);
         //alert("row " + row + " col " + col);
-
+        
         var myElement = document.querySelector("#" + e.target.id)
+        //changes the color and the number in the array
         if (grid[row][col] == 0){ 
             myElement.style.background = 'blue';
             grid[row][col] = 3;
-        }else if (grid[row][col] == 1){
+        }else if (grid[row][col] == 1){  //changes the color and the number in the array
             myElement.style.backgroundColor = 'red';
             grid[row][col] = 2;
-
+            // adds a count for the total hits
             hitCount++;
-            
+            //if you have hit every thing this says that you have won
             if (hitCount == 20){
                 alert("All enemy ships have been sunk");
             }
-
-        }else if (grid[row][col] > 1){
+        
+        }else if (grid[row][col] > 1){ //looks if you have already hit this location
             alert("you already hit this shit")
         }
     }
@@ -82,27 +83,39 @@ function fire(e) {
         "name" : "Destroyer"
     }
 
-    ship2 = {
+    ship4 = {
         "size" : 4,
         "name" : "Battleship"
     }
 
-    ship2 = {
+    ship5 = {
         "size" : 5,
         "name" : "Carrier"
     }
 
-    ship2 = {
+    ship6 = {
         "size" : 6,
         "name" : "Dikke Unit"
     }
 
+    
 
     e.stopPropagation();
-    123
-}
 }
 
+var numShips = 5;
+//places the boats randomly
+function generateRandomBoard(){
+    var shipsAdd = 0;
+    var shipSize = 2;
+    while (numShips >= shipsAdd){
+        
+        
+        shipSize++;
+        shipsAdd++;
+    }
+    }
 
 
-456
+
+
