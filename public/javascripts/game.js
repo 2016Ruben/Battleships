@@ -46,14 +46,15 @@ let hitCount = 0;
 gridContainer.addEventListener("click", fire, false);
  
 function fire(e) {
-    //controli
+    //gets the row and col number
     if (e.target !== e.currentTarget) {
         var row = e.target.id.substring(2,3);
         var col = e.target.id.substring(3,4);
-        //alert("row: " + row + ", col: " + col);
-
+        //alert("row " + row + " col " + col);
+        
         //retrieving the id of the clicked div
-        var myElement = document.querySelector("#" + e.target.id)           
+        var myElement = document.querySelector("#" + e.target.id)
+        //changes the color and the number in the array
         if (grid[row][col] == 0){ 
             myElement.style.background = "#5984C5";
             grid[row][col] = 3;
@@ -103,3 +104,20 @@ ship6 = {
     "size" : 6,
     "name" : "Dikke Unit"
 }
+
+var numShips = 5;
+//places the boats randomly
+function generateRandomBoard(){
+    var shipsAdd = 0;
+    var shipSize = 2;
+    while (numShips >= shipsAdd){
+        
+        
+        shipSize++;
+        shipsAdd++;
+    }
+}
+
+
+
+
