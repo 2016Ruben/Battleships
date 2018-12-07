@@ -72,6 +72,31 @@ function fire(e) {
         }
     }
 
+    ship2 = {
+        "size" : 2,
+        "name" : "Partol Boat"
+    }
+
+    ship3 = {
+        "size" : 3,
+        "name" : "Destroyer"
+    }
+
+    ship2 = {
+        "size" : 4,
+        "name" : "Battleship"
+    }
+
+    ship2 = {
+        "size" : 5,
+        "name" : "Carrier"
+    }
+
+    ship2 = {
+        "size" : 6,
+        "name" : "Dikke Unit"
+    }
+
 
     e.stopPropagation();
 }
