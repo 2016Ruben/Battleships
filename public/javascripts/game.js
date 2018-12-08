@@ -65,14 +65,14 @@ function fire(e) {
         if (grid[row][col] == 0){ 
             myElement.style.background = "#5984C5";
             grid[row][col] = 3;
-        }else if (grid[row][col] == 1){
+        } else if (grid[row][col] == 1){
             myElement.style.backgroundColor = "#C45858";
             grid[row][col] = 2;
 
             hitCount++;
 
             isWon();
-        }else if (grid[row][col] > 1){
+        } else if (grid[row][col] > 1){
             alert("you already hit this shit")
         }
     }
@@ -80,6 +80,7 @@ function fire(e) {
 }
 
 function isWon(e) {
+    //Timer needed for the display of color BEFORE the alert
     setTimeout(function() {
         if (hitCount > 19){
             alert("All enemy ships have been sunk");
@@ -100,10 +101,15 @@ function place(e) {
         alert("changed row: " +  rowTest + ", col: " + colTest);
         //check rows/cols availability
 
-        if (direction === "horizontal" && availableCols >= colTest) {
-            for (i = 0; i < ship2.size; i++) { //does the loop twice
+        if ((direction === "horizontal" && availableCols >= colTest) || (direction === "vertical" && availableRows >= rowTest)) {
+            for (i = 0; i < ship2.size; i++) { //does the loop twice TO-DO make size variable
                 grid[rowTest][colTest] =  1;
-                colTest++;
+        
+                if (direction === "horizontal") {
+                    colTest++;
+                } else {
+                    rowTest++;
+                }
             }
         }
     }
@@ -134,10 +140,3 @@ ship6 = {
     "size" : 6,
     "name" : "Dikke Unit"
 }
-
-
-
-
-
-
-
