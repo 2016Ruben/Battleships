@@ -40,6 +40,12 @@ var grid = [
     [0,0,0,0,0,0,0,0,0,0]
 ]
 
+var numShips = 5;
+
+function placeShips(){
+
+}
+
 
 let hitCount = 0;
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
@@ -129,18 +135,8 @@ ship6 = {
     "name" : "Dikke Unit"
 }
 
-var numShips = 5;
-//places the boats randomly
-function generateRandomBoard(){
-    var shipsAdd = 0;
-    var shipSize = 2;
-    while (numShips >= shipsAdd){
-        
-        
-        shipSize++;
-        shipsAdd++;
-    }
-}
+
+
 
 
 
