@@ -28,8 +28,8 @@ for(i = 0; i < cols; i++) {
 }
 
 var grid = [
-    [1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1],
+    [0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0],
@@ -43,13 +43,14 @@ var grid = [
 
 let hitCount = 0;
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
-gridContainer.addEventListener("click", fire, false);
+gridContainer.addEventListener("click", place, true);
+
  
 function fire(e) {
     //gets the row and col number
     if (e.target !== e.currentTarget) {
-        var row = e.target.id.substring(2,3);
-        var col = e.target.id.substring(3,4);
+        //var row = e.target.id.substring(2,3);
+        //var col = e.target.id.substring(3,4);
         //alert("row " + row + " col " + col);
         
         //retrieving the id of the clicked div
@@ -79,6 +80,29 @@ function isWon(e) {
         }},10)
 }
 
+function place(e) {
+    if (e.target !== e.currentTarget) {
+        var rowTest = e.target.id.substring(2,3);
+        var colTest = e.target.id.substring(3,4);
+
+        var availableCols = cols - ship2.size;
+        var availableRows = rows - ship2.size;
+
+        var direction = "horizontal";   //TO-DO make button for this
+        var selectedShip = ship2;       //TO-DO make button for this
+
+        alert("changed row: " +  rowTest + ", col: " + colTest);
+        //check rows/cols availability
+
+        if (direction === "horizontal" && availableCols >= colTest) {
+            for (i = 0; i < ship2.size; i++) { //does the loop twice
+                grid[rowTest][colTest] =  1;
+                colTest++;
+            }
+        }
+    }
+    e.stopPropagation();
+}
 
 ship2 = {
     "size" : 2,
