@@ -5,10 +5,11 @@ var squareSize = 50;
 
 const gridContainer = document.getElementById("Grid");
 
+
 //create the grid
 //for the second player: https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode "node.cloneNode()"
 //for now need to create 10 * 10 = 100 divs
-for(i = 0; i < cols; i++) {
+for(i = 0; i < cols; i++) { 
     for(j = 0; j < rows; j++) {
         
         var square = document.createElement("div");
@@ -26,6 +27,15 @@ for(i = 0; i < cols; i++) {
 
     }
 }
+
+
+
+
+
+
+
+
+
 
 var grid = [
     [0,0,0,0,0,0,0,0,0,0],
