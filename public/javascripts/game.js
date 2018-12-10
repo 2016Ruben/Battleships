@@ -28,35 +28,29 @@ for(i = 0; i < cols; i++) {
 }
 
 var grid = [
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0]
+    [0,0,0,0,1,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0],
+    [0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,1,0,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0],
+    [0,0,0,0,1,0,0,0,0,0]
 ]
-
-var numShips = 5;
-
-function placeShips(){
-
-}
-
 
 let hitCount = 0;
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
+
 gridContainer.addEventListener("click", place, true);
 
  
 function fire(e) {
     //gets the row and col number
     if (e.target !== e.currentTarget) {
-        //var row = e.target.id.substring(2,3);
-        //var col = e.target.id.substring(3,4);
+        var row = e.target.id.substring(2,3);
+        var col = e.target.id.substring(3,4);
         //alert("row " + row + " col " + col);
         
         //retrieving the id of the clicked div
@@ -82,39 +76,52 @@ function fire(e) {
 function isWon(e) {
     //Timer needed for the display of color BEFORE the alert
     setTimeout(function() {
-        if (hitCount > 19){
+        if (hitCount > 9){
             alert("All enemy ships have been sunk");
         }},10)
 }
+
+
+//for (i = 0; i < numShips; i++) {
+//    for(){
+//
+//   }
+//}
 
 function place(e) {
     if (e.target !== e.currentTarget) {
         var rowTest = e.target.id.substring(2,3);
         var colTest = e.target.id.substring(3,4);
 
-        var availableCols = cols - ship2.size;
-        var availableRows = rows - ship2.size;
+        for(i = 0; i < 5; i++){
+            var availableCols = cols - ships[i].size;
+            var availableRows = rows - ships[i].size;
+            alert(availableCols + "and" + availableRows);
 
-        var direction = "horizontal";   //TO-DO make button for this
-        var selectedShip = ship2;       //TO-DO make button for this
+            var direction = "horizontal";   //TO-DO make button for this
+            //var selectedShip = ship2;       //TO-DO make button for this
 
-        alert("changed row: " +  rowTest + ", col: " + colTest);
-        //check rows/cols availability
+            //alert("changed row: " +  rowTest + ", col: " + colTest);
+            //check rows/cols availability
 
-        if ((direction === "horizontal" && availableCols >= colTest) || (direction === "vertical" && availableRows >= rowTest)) {
-            for (i = 0; i < ship2.size; i++) { //does the loop twice TO-DO make size variable
-                grid[rowTest][colTest] =  1;
-        
-                if (direction === "horizontal") {
-                    colTest++;
-                } else {
-                    rowTest++;
+            if ((direction === "horizontal" && availableCols >= colTest) || (direction === "vertical" && availableRows >= rowTest)) {
+                for (j = 0; j < ships[i].size; j++) { //does the loop twice TO-DO make size variable
+                    grid[rowTest][colTest] =  1;
+            
+                    if (direction === "horizontal") {
+                        colTest++;
+                    } else {
+                        rowTest++;  
+                    }
                 }
             }
         }
     }
     e.stopPropagation();
 }
+
+//Create the ships
+var numShips = 5;
 
 ship2 = {
     "size" : 2,
@@ -140,3 +147,5 @@ ship6 = {
     "size" : 6,
     "name" : "Dikke Unit"
 }
+
+ships = [ship2, ship3, ship4, ship5, ship6];
