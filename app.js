@@ -7,4 +7,6 @@ var app = express();
 app.use(express.static(__dirname + "/public"));
 http.createServer(app).listen(port);
 
+var routes = require('./routes/index')
 
+app.use('/', routes);
