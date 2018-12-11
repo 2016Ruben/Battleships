@@ -197,3 +197,14 @@ ship6 = {
 }
 
 ships = [ship2, ship3, ship4, ship5, ship6];
+
+
+
+
+//server & socket code etc
+var socket = new WebSocket("ws://localhost:3000");
+
+//what to do after opening socket
+socket.onopen = function () {
+    socket.send ("Hello :)");           //Add code in app.js to handle messages that are send
+};
