@@ -16,21 +16,31 @@ app.use('/', routes);
 var server = http.createServer(app);
 const wss = new websocket.Server({ server });
 
+var websockets = {};
+
+setInterval(function(){
+    for(let i in websockets){
+        if(websockets.hasOwnProperty(i)){
+            let gameObj = websockets [i];
+            if(gameObj.finalStatus!=null){
+                console.log("deleting element " + i);
+                delete websockets[i];
+            }
+        }
+    }
+}, 50000);
+
+var currentGame = new Game(gameStatus.gamesIntialized++);
+var connectionID = 0;
+
 wss.on("connection", function(ws) {
 
-//what to do on connection
-    console.log("Connected...");
-    ws.on("message", function incoming(message) {
-        console.log("This message was created and send via game.js: " + message);
-    });
+
+    let con = ws;
+    con.id = connectionID++;
+    let playerType = currentGame.addPlayer(con);
+    websockets[con.id] = currentGame;
+
+    con.send((playerType == "A") ? messages.S_player_A : messages.S_player_B);
 
 });
-
-
-wss.on("close", function connection() {
-    //what to do on close
-        console.log("Connection closed...");
-    
-    });
-
-server.listen(3000);

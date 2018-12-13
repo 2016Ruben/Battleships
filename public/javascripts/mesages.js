@@ -16,10 +16,24 @@
     };
 
     /*
-    * server to client: enemy hit
+    * client A to server or server to client B: hit
     */
-    exports.HIT = {
-        type: "HIT"
+    exports.FIRE = {
+        type: "FIRED"
+    };
+
+    /*
+    * client to server:boats PLaced
+    */
+    exports.PLACED = {
+        type: "PLACED"
+    };
+
+    /*
+    * server to client: grid
+    */
+    exports.GRID = {
+        type: "GRID"
     };
 
     /*
