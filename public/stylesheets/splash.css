@@ -18,17 +18,17 @@ body {
 
 
 #title{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    position: relative;
+    left: 32.8%;
+    transform: translateX(-50%);
     height: 50px;
     font-size: 3em;
-    text-align: center;
-    margin-bottom: 30px;
 }
 
 button{
-    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
     margin-left: auto;
     margin-right: auto;
     width: 250px;
@@ -36,4 +36,20 @@ button{
     border: 0px;
     background-color: lightblue;
     font-size: 2em
+}
+
+button:hover{
+    background-color: blue;
+}
+
+button:active{
+    background-color: blueviolet;
+}
+
+button::before{
+    background-color: lightblue;
+}
+
+button::after{
+    background-color: blueviolet;
 }
