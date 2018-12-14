@@ -80,8 +80,8 @@ wss.on("connection", function (ws) {
     }
 
     //console.log("Game: "+ games + "\n");        //because new game() uses games and after that increments it, this value displays the NEXT games value used 
-    console.log(websockets[con.id].playerA);
-    console.log(con);
+    //console.log(websockets[con.id].playerA);
+    //console.log(con);
 
     //define what to do when a message is incomming (e.g. display the move the enemy made)
     con.on("message", function incoming(message) {
@@ -102,7 +102,7 @@ wss.on("connection", function (ws) {
         }
     });
 
-
+    //define what to do if the connection closes
     con.on("close", function () {
 
     });

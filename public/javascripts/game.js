@@ -5,33 +5,34 @@ var squareSize = 50;
 let hitCount = 0;
 var direction = "horizontal";
 var numShips = 5;
+var placedShips = 0;
 
 const gridContainer = document.getElementById("Grid");
-
-
-
 
 //create the grid
 //for the second player: https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode "node.cloneNode()"
 //for now need to create 10 * 10 = 100 divs
-for (i = 0; i < cols; i++) {
-    for (j = 0; j < rows; j++) {
+var createGrid = function () {
+    for (i = 0; i < cols; i++) {
+        for (j = 0; j < rows; j++) {
 
-        var square = document.createElement("div");
-        gridContainer.appendChild(square);    //append the created div to the section named grid
+            var square = document.createElement("div");
+            gridContainer.appendChild(square);    //append the created div to the section named grid
 
-        square.id = 'id' + j + i;    //will be a string because of the "id"      https://stackoverflow.com/questions/19625646/javascript-adding-an-id-attribute-to-another-created-element
+            square.id = 'id' + j + i;    //will be a string because of the "id"      https://stackoverflow.com/questions/19625646/javascript-adding-an-id-attribute-to-another-created-element
 
-        // set each grid square's coordinates: multiples of the current row or column number
-        var topPosition = j * squareSize;
-        var leftPosition = i * squareSize;
+            // set each grid square's coordinates: multiples of the current row or column number
+            var topPosition = j * squareSize;
+            var leftPosition = i * squareSize;
 
-        // use CSS absolute positioning to place each grid square on the page
-        square.style.top = topPosition + 'px';
-        square.style.left = leftPosition + 'px';
+            // use CSS absolute positioning to place each grid square on the page
+            square.style.top = topPosition + 'px';
+            square.style.left = leftPosition + 'px';
 
+        }
     }
 }
+
 
 var myGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -47,21 +48,20 @@ var myGrid = [
 ]
 
 var enemyGrid = [
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-gridContainer.addEventListener("click", place, true);
-
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
+// TODO: send the chosen DIV to the other player so it can be displayed there
 function fire(e) {
     //gets the row and col number
     if (e.target !== e.currentTarget) {
@@ -108,7 +108,10 @@ directionButton.onclick = function directionSwitch() {
     alert("The direction is now: " + direction);
 }
 
-function place(e) {
+
+// TODO: make part of setup DONE
+var placeShips = function place(e) {
+    gridContainer.addEventListener("click", place, true);
     if (e.target !== e.currentTarget) {
         if (placedShips < 5) {
             var rowTest = e.target.id.substring(2, 3);
@@ -202,11 +205,18 @@ ships = [ship2, ship3, ship4, ship5, ship6];
 
 
 
+(function setUp() {
+    createGrid();       //create the board (100 divs)
+    placeShips();
 
-//server & socket code etc
-var socket = new WebSocket("ws://localhost:3000");
+    //server & socket code etc
+    var socket = new WebSocket("ws://localhost:3000");
 
-//what to do after opening socket
-socket.onopen = function () {
-    socket.send ("Hello :)");           //Add code in app.js to handle messages that are send
-};
+
+
+
+    socket.onopen = function () {
+        console.log("[LOG] Socket opened :)")
+        document.getElementById("hello").innerHTML = "Sending a first message to the server ...";
+    };
+})(); //immediately invoked by ();

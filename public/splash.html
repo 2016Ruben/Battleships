@@ -10,7 +10,7 @@
 
 	<body>
 		<main>
-			
+			Status: <span id="hello"></span>
 			<section id="Battleships">
 				<form action="/game.html" method="get">
                             <button type="submit">PLAY</button>
@@ -31,6 +31,17 @@
 			</section>
 
 		</main>
+		<script>
+            var socket = new WebSocket("ws://localhost:3000");
+            socket.onmessage = function(event){
+                document.getElementById("hello").innerHTML = event.data;
+            }
+
+            socket.onopen = function(){
+                socket.send("Hello from the client!");
+                document.getElementById("hello").innerHTML = "Sending a first message to the server ...";
+            };
+        </script> 
 	</body>
 
 </html>
