@@ -14,6 +14,7 @@
 				<img src="images/Battleship_clipart.png" alt="The logo of Battleships" id="battleshipLogo">
 			</section>
 			Status: <span id="hello"></span>
+			<!-- Status: <span id="hello"></span> -->
 			<section id="Battleships">
 				<span id= "title" class="title">BATTLESHIPS</span>
 				<form action="/game.html" method="get">
@@ -35,7 +36,7 @@
 			</section>
 
 		</main>
-		<script>
+		<!-- <script>
             var socket = new WebSocket("ws://localhost:3000");
             socket.onmessage = function(event){
                 document.getElementById("hello").innerHTML = event.data;
@@ -45,7 +46,7 @@
                 socket.send("Hello from the client!");
                 document.getElementById("hello").innerHTML = "Sending a first message to the server ...";
             };
-        </script> 
+        </script>  -->
 	</body>
 
 </html>
