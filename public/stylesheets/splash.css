@@ -19,7 +19,7 @@ body {
 
 #title{
     position: relative;
-    left: 32.8%;
+    left: 11.4%;
     transform: translateX(-50%);
     height: 50px;
     font-size: 3em;
@@ -35,21 +35,34 @@ button{
     height: 80px;
     border: 0px;
     background-color: lightblue;
-    font-size: 2em
+    font-size: 2em;
 }
 
 button:hover{
     background-color: blue;
+    width: 300px;
+    -webkit-transition: width 2s;
+    -webkit-animation-name:knopjes;
+    -webkit-animation-duration: 4s; 
+
+
+}
+
+@-webkit-keyframes knopjes{
+    from {background-color: lightblue}
+    to{background-color: blue}
 }
 
 button:active{
     background-color: blueviolet;
 }
 
-button::before{
-    background-color: lightblue;
+#title::before{
+    content: "Shoot eachother botes- ";
+    font-size: 20px;
 }
 
-button::after{
-    background-color: blueviolet;
+#title::after{
+    content: " -Enjoy playing";
+    font-size: 20px;
 }

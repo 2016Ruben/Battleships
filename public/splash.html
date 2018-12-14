@@ -5,37 +5,24 @@
 <head>
 	<title>Battleship</title>
 	<link rel="stylesheet" href="stylesheets/splash.css">
-	</head>
+</head>
 
 
-	<body>
-		<main>
-			<section id="Logo">
-				<img src="images/Battleship_clipart.png" alt="The logo of Battleships" id="battleshipLogo">
-			</section>
-			Status: <span id="hello"></span>
-			<!-- Status: <span id="hello"></span> -->
-			<section id="Battleships">
-				<span id= "title" class="title">BATTLESHIPS</span>
-				<form action="/game.html" method="get">
-                            <button type="submit">PLAY</button>
-                </form>
-				
-			</section>
-			
+<body>
+	<main>
+		<section id="Logo">
+			<img src="images/Battleship_clipart.png" alt="The logo of Battleships" id="battleshipLogo">
+		</section>
+		<section id="Battleships">
+			<span id="title" class="title">BATTLESHIPS</span>
+			<form action="/game.html" method="get">
+				<button type="submit">PLAY</button>
+			</form>
 
-		</main>
-		<!-- <script>
-            var socket = new WebSocket("ws://localhost:3000");
-            socket.onmessage = function(event){
-                document.getElementById("hello").innerHTML = event.data;
-            }
+		</section>
 
-            socket.onopen = function(){
-                socket.send("Hello from the client!");
-                document.getElementById("hello").innerHTML = "Sending a first message to the server ...";
-            };
-        </script>  -->
-	</body>
+
+	</main>
+</body>
 
 </html>
