@@ -64,7 +64,7 @@ var myGrid = [
 // TODO: send the chosen DIV to the other player so it can be displayed there
 function fire(e) {
     //gets the row and col number
-    if (e.target !== e.currentTarget) {
+    if (e.target !== e.currentTarget && SHOOT == 1) {
         var row = e.target.id.substring(2, 3);
         var col = e.target.id.substring(3, 4);
         //alert("row " + row + " col " + col);
@@ -83,16 +83,21 @@ function fire(e) {
 
             isWon();
         } else if (enemyGrid[row][col] > 1) {
-            alert("you already hit this shit")
+            alert("you already hit this place")
         }
+
+        //set data to the clicked div and send to server
+        O_MOVE.data = e.target.id;
+        sendMove();
     }
+    SHOOT = 0;
     e.stopPropagation();
 }
 
 function isWon(e) {
     //Timer needed for the display of color BEFORE the alert
     setTimeout(function () {
-        if (hitCount >= 20) {
+        if (hitCount >= 3) {
             alert("All enemy ships have been sunk");
             checkWon();
         }
@@ -222,6 +227,15 @@ O_WON = {
     data: null
 };
 
+//ID of the div
+T_MOVE = "MOVE";
+O_MOVE = {
+    type: T_MOVE,
+    data: null
+};
+
+SHOOT = 0;
+
 // O_ABORTED = { type: "ABORTED" };
 
 
@@ -252,6 +266,11 @@ O_WON = {
         socket.send(JSON.stringify(O_WON));
     }
 
+    sendMove = function () {
+        socket.send(JSON.stringify(O_MOVE));
+        //SHOOT = 0;
+    }
+
     //assigned myGrid to outgoingMsg.data, now send it to server
     //socket.send(JSON.stringify(outgoingMsg));
 
@@ -260,8 +279,7 @@ O_WON = {
 
     //What to do when a connection is opened
     socket.onopen = function () {
-        alert("OPENED WebSocket :)");
-        //socket.send(JSON.stringify(outgoingMsg));             //test
+        alert("[OPENDED WEBSOCKET] Please wait while we search for available players...");
     };
 
     //What to do when recieving a message
@@ -272,23 +290,26 @@ O_WON = {
         if (incomingMsg.type == "SEND-SHIPS") {
             enemyGrid = incomingMsg.data;
             alert(enemyGrid);
-
         }
 
         if (incomingMsg.type == "READY") {
             placeShips(send);       //place the ships in myGrid, BUT ONLY AFTER 2 PLAYERS ARE CONNECTED and send the ships
+            SHOOT = 1;
         }
 
         if (incomingMsg.type == "LOST") {
             O_WON.data = false;
             alert("Your enemy has won");
-
         }
 
         if (incomingMsg.type == "ABORTED") {
             alert("Your enemy has left the game, thus you won!");
         }
 
+        if (incomingMsg.type == "MOVE") {
+            alert("Your enemy fired at: "+ incomingMsg.data);
+            SHOOT = 1;
+        }
     };
 
     socket.onclose = function(){
