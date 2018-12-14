@@ -1,0 +1,36 @@
+body {
+    background-color: seagreen;
+    margin: 60px auto;
+    width: 70%;
+    max-width: 1000px;
+}
+
+#battleshipLogo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    margin: 60px auto;
+  }
+
+#battleship{
+    position: relative;
+}
+
+#title{
+    font-size: 5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    height: 100px;
+    width: 250px;
+    font-size: 3em;
+    background-color: lightblue ;
+    border: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
