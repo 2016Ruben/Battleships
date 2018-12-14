@@ -12,25 +12,28 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    margin: 60px auto;
+    margin: 40px auto;
   }
 
-#battleship{
-    position: relative;
-}
+
 
 #title{
-    font-size: 5em;
+    display: block;
     margin-left: auto;
     margin-right: auto;
+    height: 50px;
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-button {
-    height: 100px;
-    width: 250px;
-    font-size: 3em;
-    background-color: lightblue ;
-    border: 0px;
+button{
+    display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 250px;
+    height: 80px;
+    border: 0px;
+    background-color: lightblue;
+    font-size: 2em
 }
