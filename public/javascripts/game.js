@@ -94,6 +94,7 @@ function isWon(e) {
     setTimeout(function () {
         if (hitCount >= 20) {
             alert("All enemy ships have been sunk");
+            checkWon();
         }
     }, 10)
 }
@@ -109,7 +110,6 @@ directionButton.onclick = function directionSwitch() {
 }
 
 
-// TODO: make part of setup DONE
 
 var placeShips = function placeShips(callback) {
     gridContainer.addEventListener("click", place, true);
@@ -215,11 +215,20 @@ O_SEND_SHIPS = {
     data: null
 };
 
+//true/null
+T_WON = "WON";
+O_WON = {
+    type: T_WON,
+    data: null
+};
+
+// O_ABORTED = { type: "ABORTED" };
+
 
 
 (function setUp() {
     createGrid();       //create the board (100 divs)
-    placeShips(send);       //place the ships in myGrid
+    // placeShips(send);       //place the ships in myGrid
 
     // TODO: send your placed ships to the enemy USING message
     //The second argument alters the contents of the string before returning it. 
@@ -238,6 +247,11 @@ O_SEND_SHIPS = {
         socket.send(JSON.stringify(outgoingMsg));
     }
 
+    checkWon = function isWonWs() {
+        O_WON.data = true;
+        socket.send(JSON.stringify(O_WON));
+    }
+
     //assigned myGrid to outgoingMsg.data, now send it to server
     //socket.send(JSON.stringify(outgoingMsg));
 
@@ -251,7 +265,7 @@ O_SEND_SHIPS = {
     };
 
     //What to do when recieving a message
-    socket.onmessage = function(event) {
+    socket.onmessage = function (event) {
         let incomingMsg = JSON.parse(event.data);
         alert(JSON.stringify(incomingMsg));
         //check what message it is 
@@ -260,5 +274,26 @@ O_SEND_SHIPS = {
             alert(enemyGrid);
 
         }
+
+        if (incomingMsg.type == "READY") {
+            placeShips(send);       //place the ships in myGrid, BUT ONLY AFTER 2 PLAYERS ARE CONNECTED and send the ships
+        }
+
+        if (incomingMsg.type == "LOST") {
+            O_WON.data = false;
+            alert("Your enemy has won");
+
+        }
+
+        if (incomingMsg.type == "ABORTED") {
+            alert("Your enemy has left the game, thus you won!");
+        }
+
+    };
+
+    socket.onclose = function(){
+        // if(O_WON.data == null){
+        //     socket.send(JSON.stringify(O_ABORTED));
+        // }
     };
 })(); //immediately invoked by ();

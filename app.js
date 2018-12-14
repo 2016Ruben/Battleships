@@ -59,6 +59,18 @@ var websockets = {};        //will keep track of what webSocked is assigned to w
 var connectionID = 0;
 var currentGame = new game(games++);
 
+//messages
+O_READY = { type: "READY" };
+
+O_ABORTED = { type: "ABORTED" };
+
+T_LOST = "LOST";
+O_LOST = {
+    type: T_LOST,
+    data: null
+};
+
+
 wss.on("connection", function (ws) {
 
     let con = ws;
@@ -77,6 +89,10 @@ wss.on("connection", function (ws) {
 
     if (currentGame.twoConnected()) {           //If there exists an playerA && playerB this evaluates to true
         currentGame = new game(games++);
+        //send ready signal to both A & B
+        console.log(O_READY);
+        websockets[con.id].playerA.send(JSON.stringify(O_READY));
+        websockets[con.id].playerB.send(JSON.stringify(O_READY));
     }
 
     //console.log("Game: "+ games + "\n");        //because new game() uses games and after that increments it, this value displays the NEXT games value used 
@@ -104,6 +120,20 @@ wss.on("connection", function (ws) {
 
             }
 
+            if (incomingMsg.type == "WON") {
+                console.log("[LOG] The message is that someone has won :)");
+
+                //Now send to playerB that he has lost
+                O_LOST.data = true;
+                gameObj.playerB.send(JSON.stringify(O_LOST));
+            }
+
+            if (incoming.type == "ABORTED") {
+                console.log("[LOG] The message is that playerA has left the game");
+
+                gameObj.playerB.send(JSON.stringify(incomingMsg));
+            }
+
 
 
         } else {
@@ -118,12 +148,51 @@ wss.on("connection", function (ws) {
 
             }
 
+            if (incomingMsg.type == "WON") {
+                console.log("[LOG] The message is that someone has won :)");
+
+                //Now send to playerA that he has lost
+                O_LOST.data = true;
+                gameObj.playerA.send(JSON.stringify(O_LOST));
+
+            }
+
+            if (incoming.type == "ABORTED") {
+                console.log("[LOG] The message is that playerA has left the game");
+
+                gameObj.playerA.send(JSON.stringify(incomingMsg));
+            }
+
 
         }
     });
 
     //define what to do if the connection closes
     con.on("close", function () {
+        //check what socket has closed so you can inform his/her enemy
+        console.log(con.id + " disconnected ...\n");
+
+        let gameObj = websockets[con.id];
+
+        gameObj.gameState = "ABORTED";
+
+        try {
+            gameObj.playerA.send(JSON.stringify(O_ABORTED));
+            gameObj.playerA.close();
+            gameObj.playerA = null;
+        }
+        catch(e){
+            console.log("Player A closing: "+ e);
+        }
+
+        try {
+            gameObj.playerB.send(JSON.stringify(O_ABORTED));
+            gameObj.playerB.close();
+            gameObj.playerB = null;
+        }
+        catch(e){
+            console.log("Player B closing: " + e);
+        }                
 
     });
 });
