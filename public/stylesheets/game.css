@@ -33,3 +33,28 @@ body {
 	height: 50px;
 }
 
+#direction{
+    border: 0px;
+    background-color: lightblue;
+}
+
+#direction:hover{
+    background-color: blue;
+    color: white;
+    -webkit-animation-name:knopjes;
+    -webkit-animation-duration: 4s; 
+
+
+}
+
+@-webkit-keyframes knopjes{
+    from {background-color: lightblue}
+    to{background-color: blue}
+    from{color: black}
+    to{color: white}
+}
+
+#direction::after{
+    content: " Choose here wheter you want place horizontally or vertically";
+    
+}
