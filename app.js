@@ -29,25 +29,25 @@ var game = function (gameID) {
 };
 
 //adds a .addPlayer function to game Obbject/constructor
-game.prototype.addPlayer = function(p) {          //prototpe is needed to be able to add a function to the cinstructor "game" SEE: https://www.w3schools.com/js/js_object_prototypes.asp
+game.prototype.addPlayer = function (p) {          //prototpe is needed to be able to add a function to the cinstructor "game" SEE: https://www.w3schools.com/js/js_object_prototypes.asp
 
-    if(this.playerA == null) {
+    if (this.playerA == null) {
         this.playerA = p;
         return 'A';
-        console.log("Player A added: "+ p);
-    } 
+        console.log("Player A added: " + p);
+    }
 
-    if(this.playerB == null) {
+    if (this.playerB == null) {
         this.playerB = p;
         return 'B';
-        console.log("Player B added: "+ p);
+        console.log("Player B added: " + p);
     }
 };
 
-game.prototype.twoConnected = function() {      //checks if there are 2 players connected
+game.prototype.twoConnected = function () {      //checks if there are 2 players connected
     //means 2 players are connected, so you need to create a new gameObject to add new players to (done in the code of wss.on(connection))
     return (this.playerA != null && this.playerB != null);
-    };
+};
 
 
 
@@ -59,9 +59,9 @@ var websockets = {};        //will keep track of what webSocked is assigned to w
 var connectionID = 0;
 var currentGame = new game(games++);
 
-wss.on("connection", function(ws) {
+wss.on("connection", function (ws) {
 
-    let con = ws; 
+    let con = ws;
     con.id = connectionID++;                //An ID assigned to the webSocket so you can track them to games etc.
     //console.log("ConnectionID: "+ connectionID);
 
@@ -86,7 +86,7 @@ wss.on("connection", function(ws) {
     //define what to do when a message is incomming (e.g. display the move the enemy made)
     con.on("message", function incoming(message) {
         let gameObj = websockets[con.id];         //gets the game that is associated with the con.id, can call all the functions/variables of normal game object
-        
+
         //Message = from playerA
         if (gameObj.id == con) {
 
@@ -103,14 +103,9 @@ wss.on("connection", function(ws) {
     });
 
 
-    con.on("close", function() {
+    con.on("close", function () {
 
     });
-
-
-
-
-
-    });
+});
 
 server.listen(port);        //defining what port the server listenes to

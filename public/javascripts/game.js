@@ -9,6 +9,8 @@ var numShips = 5;
 const gridContainer = document.getElementById("Grid");
 
 
+
+
 //create the grid
 //for the second player: https://developer.mozilla.org/en-US/docs/Web/API/Node/cloneNode "node.cloneNode()"
 //for now need to create 10 * 10 = 100 divs
