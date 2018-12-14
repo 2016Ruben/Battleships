@@ -83,20 +83,40 @@ wss.on("connection", function (ws) {
     //console.log(websockets[con.id].playerA);
     //console.log(con);
 
-    //define what to do when a message is incomming (e.g. display the move the enemy made)
+    //define what to do when a message is incoming (e.g. display the move the enemy made)
     con.on("message", function incoming(message) {
+        let incomingMsg = JSON.parse(message);   //incomingMsg is now an object containing TYPE: SEND-SHIPS & DATA: myGrid
+        //console.log(incomingMsg);                //Ucomment to check message
         let gameObj = websockets[con.id];         //gets the game that is associated with the con.id, can call all the functions/variables of normal game object
 
-        //Message = from playerA
-        if (gameObj.id == con) {
+        // console.log(gameObj.playerA);
+        // console.log(con);
 
+        //Message = from playerA
+        if (gameObj.playerA == con) {
+            console.log("[LOG] Message was from player A");
+
+            if (incomingMsg.type == "SEND-SHIPS") {
+                console.log("[LOG] The message is a grid");
+
+                //Now send the message to playerB
+                gameObj.playerB.send(JSON.stringify(incomingMsg));
+
+            }
 
 
 
         } else {
             //Message = from playerB
+            console.log("[LOG] Message was from player B");
 
+            if (incomingMsg.type == "SEND-SHIPS") {
+                console.log("[LOG] The message is a grid");
 
+                //Now send the message to playerA
+                gameObj.playerA.send(JSON.stringify(incomingMsg));
+
+            }
 
 
         }
