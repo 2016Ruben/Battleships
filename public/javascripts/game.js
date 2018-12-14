@@ -47,19 +47,6 @@ var myGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-// var enemyGrid = [
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-// ]
-
 //code for the clicking on the squares       https://www.kirupa.com/html5/handling_events_for_many_elements.htm
 // TODO: send the chosen DIV to the other player so it can be displayed there
 function fire(e) {
@@ -97,7 +84,7 @@ function fire(e) {
 function isWon(e) {
     //Timer needed for the display of color BEFORE the alert
     setTimeout(function () {
-        if (hitCount >= 3) {
+        if (hitCount >= 20) {
             alert("All enemy ships have been sunk");
             checkWon();
         }
@@ -157,7 +144,7 @@ var placeShips = function placeShips(callback) {
                                 rowTest++;
                             }
                         }
-                        alert("Ship placed :)")
+                        alert("Ship placed...")
                     }
                 }
 
@@ -247,12 +234,12 @@ SHOOT = 0;
     // TODO: send your placed ships to the enemy USING message
     //The second argument alters the contents of the string before returning it. 
     //The third argument specifies how many spaces to use as white space for readability.
-    alert(JSON.stringify(O_SEND_SHIPS));
+    //alert(JSON.stringify(O_SEND_SHIPS));
 
     let outgoingMsg = O_SEND_SHIPS;
     outgoingMsg.data = myGrid;
 
-    alert(JSON.stringify(outgoingMsg));
+    //alert(JSON.stringify(outgoingMsg));
 
     //Send the grid as a message to the server
     function send() {
@@ -279,20 +266,22 @@ SHOOT = 0;
 
     //What to do when a connection is opened
     socket.onopen = function () {
-        alert("[OPENDED WEBSOCKET] Please wait while we search for available players...");
+        alert("[OPENED WEBSOCKET] Please wait while we search for available players...");
     };
 
     //What to do when recieving a message
     socket.onmessage = function (event) {
         let incomingMsg = JSON.parse(event.data);
         alert(JSON.stringify(incomingMsg));
+        //alert("Ready, let's play!");
         //check what message it is 
         if (incomingMsg.type == "SEND-SHIPS") {
             enemyGrid = incomingMsg.data;
-            alert(enemyGrid);
+            //alert(enemyGrid);
         }
 
         if (incomingMsg.type == "READY") {
+            alert("Ready to play!");
             placeShips(send);       //place the ships in myGrid, BUT ONLY AFTER 2 PLAYERS ARE CONNECTED and send the ships
             SHOOT = 1;
         }

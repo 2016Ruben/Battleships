@@ -88,16 +88,10 @@ wss.on("connection", function (ws) {
     if (currentGame.twoConnected()) {           //If there exists an playerA && playerB this evaluates to true
         currentGame = new game(games++);
         //send ready signal to both A & B
-        console.log(O_READY);
+        console.log("Ready");
         websockets[con.id].playerA.send(JSON.stringify(O_READY));
         websockets[con.id].playerB.send(JSON.stringify(O_READY));
-     }// else {
-    //     alert("Please wait for an enemy...");
-    // }
-
-    //console.log("Game: "+ games + "\n");        //because new game() uses games and after that increments it, this value displays the NEXT games value used 
-    //console.log(websockets[con.id].playerA);
-    //console.log(con);
+     }
 
     //define what to do when a message is incoming (e.g. display the move the enemy made)
     con.on("message", function incoming(message) {
